@@ -1,0 +1,105 @@
+@(message:String)
+
+@main("Welcome to Play") {
+  <h1>@message</h1>
+  <div> 1234</div>
+
+  <button id="myButton">点我</button>
+  <button id="myButton2">点我2发送x-www-form-urlencoded格式</button>
+    <button id="myButton3">点我发送formdata格式</button>
+    <button id="myButton4">点我发送json格式</button>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript">
+          document.getElementById("myButton").onclick = function() {
+            axios.get('/bye ')
+                    .then((res)=>{
+              console.log(res)
+            })
+                    .catch((res)=>{
+                      console.log("No")
+                    })
+
+          }
+
+          document.getElementById("myButton2").onclick = function() {
+
+              var name = "John";
+              var formData = new URLSearchParams();
+              formData.append('name', name);
+              formData.append('age', 20);
+            axios({
+              url:`/hello2`,
+
+              method:"post",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded' // 设置 Content-Type 为 application/x-www-form-urlencoded
+                },
+                data:  formData
+
+            }).then((res)=>{
+                      console.log(res)
+                    })
+                    .catch((res)=>{
+                      console.log("No")
+                    })
+
+          }
+
+          document.getElementById("myButton3").onclick = function() {
+
+              var name = "John";
+              var formData = new FormData();
+              formData.append('name', name);
+              formData.append('age', 20);
+              axios({
+                  url:`/hello3`,
+
+                  method:"post",
+                  headers: {
+                      'Content-Type': 'application/multipart/form-data' // 设置 Content-Type 为 application/x-www-form-urlencoded
+                  },
+                  data:  formData
+
+              }).then((res)=>{
+                  console.log(res)
+              })
+                      .catch((res)=>{
+                          console.log("No")
+                      })
+
+          }
+
+
+          document.getElementById("myButton4").onclick = function() {
+
+              var name = "John";
+            var age=20
+
+              var data={
+                name:name,
+                  age:age
+              }
+
+
+
+              axios({
+                  url:`/jsonTo`,
+
+                  method:"post",
+                  headers: {
+                      'Content-Type': 'application/json' // 设置 Content-Type 为 application/x-www-form-urlencoded
+                  },
+                  data:  JSON.stringify(data)
+
+              }).then((res)=>{
+                  console.log(res)
+
+              })
+                      .catch((res)=>{
+                          console.log("No")
+                      })
+
+          }
+
+  </script>
+}
